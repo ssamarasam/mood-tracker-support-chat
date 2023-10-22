@@ -18,6 +18,7 @@ model User {
   password                      String
   role                          String
   name                          String
+  gender                        String
   dob                           String
   phone                         String
   emergencyContactName          String?
@@ -25,7 +26,6 @@ model User {
   emergencyContactRelationship  String?
   healthCareCode                String?
   professionalSpecialization    String?
-  professionalLicense           String?
   aiPredictiveData              String?
   moodTrackingData              MoodTrackingData[]
 }

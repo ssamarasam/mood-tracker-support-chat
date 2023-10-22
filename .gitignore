@@ -1,3 +1,14 @@
+# Ignore node_modules directory
+/node_modules
+node_modules
+
+# Ignore build artifacts (e.g., from Create React App)
+/build
+/dist
+
+# Exclude .env files (if you store them in the root)
+.env*
+
 # Logs
 logs
 *.log
