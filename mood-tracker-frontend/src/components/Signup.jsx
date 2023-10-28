@@ -32,7 +32,7 @@ const signupSchema = z.object({
         message: "Phone number should be a valid number",
       }
     ),
-  healthCareCodeRef: z.string().min(5, "Enter 5 chars").max(5),
+  healthCareCode: z.string().min(5, "Enter 5 chars"),
 });
 
 const Signup = ({ toggleForm }) => {
@@ -57,13 +57,10 @@ const Signup = ({ toggleForm }) => {
     email: "",
     password: "",
     name: "",
-    dob: "",
     phone: "",
     emergencyContactName: "",
     emergencyContactPhone: "",
-    emergencyContactRelationship: "",
-    healthcareCode: "",
-    professionalSpecialization: "",
+    healthCareCode: "",
   });
 
   const navigate = useNavigate();
@@ -101,7 +98,7 @@ const Signup = ({ toggleForm }) => {
       emergencyContactName: "",
       emergencyContactPhone: "",
       emergencyContactRelationship: "",
-      healthcareCode: "",
+      healthCareCode: "",
       professionalSpecialization: "",
     };
     signupData.email = emailRef.current.value;
@@ -114,10 +111,20 @@ const Signup = ({ toggleForm }) => {
     signupData.emergencyContactName = emergencyContactNameRef.current.value;
     signupData.emergencyContactPhone = emergencyContactPhoneRef.current.value;
     signupData.emergencyContactRelationship = relationship;
-    signupData.healthcareCode = healthCareCodeRef.current.value;
+    signupData.healthCareCode = healthCareCodeRef.current.value;
+    console.log("code: ", healthCareCodeRef.current.value);
     signupData.professionalSpecialization =
       professionalSpecializationRef.current.value;
 
+    const validformData = {
+      email: emailRef.current.value,
+      password: passwordRef.current.value,
+      name: nameRef.current.value,
+      phone: phoneRef.current.value,
+      emergencyContactName: emergencyContactNameRef.current.value,
+      emergencyContactPhone: emergencyContactPhoneRef.current.value,
+      healthCareCode: healthCareCodeRef.current.value,
+    };
     try {
       const validateFormData = signupSchema.parse(signupData);
       const URL = "http://localhost:3000" + "/user-profile/signup";
@@ -138,7 +145,7 @@ const Signup = ({ toggleForm }) => {
         }
       }
     } catch (err) {
-      console.log("Error while signup");
+      console.log("Error while signup: ", err);
       // setFormErros(err.formErrors);
 
       if (err.errors) {
@@ -214,8 +221,8 @@ const Signup = ({ toggleForm }) => {
               <select onChange={handleRoleChange} ref={roleRef} required>
                 <option value="">Select Role *</option>
                 <option value="Patient">Patient</option>
-                <option value="Healthcare Professional">
-                  Healthcare Professional
+                <option value="HealthCare Professional">
+                  HealthCare Professional
                 </option>
               </select>
             </label>
@@ -322,19 +329,19 @@ const Signup = ({ toggleForm }) => {
           </div>
 
           <div>
-            <label htmlFor="healthcareCode">Healthcare Code</label>
+            <label htmlFor="healthCareCode">HealthCare Code</label>
             <input
               ref={healthCareCodeRef}
               type="text"
-              id="healthcareCode"
-              name="healthcareCode"
+              id="healthCareCode"
+              name="healthCareCode"
               className=""
-              placeholder="healthcareCode"
+              placeholder="healthCareCode"
               onChange={clearErrorMessage}
               required
             />
-            {formErrors?.healthcareCode && (
-              <p className="error-message">{formErrors.healthcareCode}</p>
+            {formErrors?.healthCareCode && (
+              <p className="error-message">{formErrors.healthCareCode}</p>
             )}
           </div>
           <div>

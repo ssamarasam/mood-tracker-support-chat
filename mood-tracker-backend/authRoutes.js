@@ -20,12 +20,15 @@ router.post("/login", async (req, res) => {
     }
     if (user.password !== password) {
       console.log("pwd not correct");
-      return res.status(401).json({ message: "Authentication failed" });
+      return res.status(401).json({ message: "Auth failed" });
     }
+    if (user) {
+      const { password, ...userObjWithoutPassword } = user;
 
-    const token = jwt.sign({ user }, JWT_SECRET_KEY);
-    console.log("auth sucecssful, user found, token generated");
-    res.json({ token });
+      const token = jwt.sign({ user: userObjWithoutPassword }, JWT_SECRET_KEY);
+      console.log("auth sucecssful, user found, token generated");
+      res.json({ token });
+    }
   } catch (error) {
     console.error("Login failed:", error);
     res.status(500).json({ message: "Internal server error" });

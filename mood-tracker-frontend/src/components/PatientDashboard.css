@@ -1,0 +1,48 @@
+.columns-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.column-1,
+.column-2 {
+  flex: 1;
+  padding: 1rem;
+}
+
+.chat-float-button {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  padding: 0.5rem 1rem;
+  background-color: #4caf50;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.chat-window {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 400px;
+  height: 90vh; /* 90% of the viewport height */
+  background-color: white;
+  box-shadow: -2px 0px 5px rgba(0, 0, 0, 0.1);
+  z-index: 999; /* Ensures that it's below the floating button */
+  padding: 1rem;
+  overflow-y: auto; /* For scrolling chat content */
+}
+
+.chat-minimize-button {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  background-color: red;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  padding: 0.2rem 0.5rem;
+}

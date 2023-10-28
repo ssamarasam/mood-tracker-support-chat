@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Dashboard from "./components/Dashboard";
@@ -28,6 +33,17 @@ const App = () => {
             path="/signup"
             element={<Signup handleSignup={handleSignup} />}
           />
+          <Route path="/profile" element={<Login />} />
+          <Route
+            path="/dashboard"
+            element={
+              isAuthenticated ? (
+                <Dashboard role={role} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
+            }
+          />
           <Route
             path="/"
             element={
@@ -54,4 +70,8 @@ export default App;
               <Dashboard userRole={userRole} />
             </AuthCheck>
           </Route> */
+}
+
+{
+  /* <Route path="/dashboard" element={<Dashboard role={role} />} /> */
 }
