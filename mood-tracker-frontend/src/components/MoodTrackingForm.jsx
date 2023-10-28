@@ -38,6 +38,7 @@ const MoodTrackingForm = () => {
   });
 
   const navigate = useNavigate();
+  const [showThanksMessage, setShowThanksMessage] = useState(false);
 
   const clearErrorMessage = (e) => {
     const { name, value } = e.target;
@@ -75,7 +76,7 @@ const MoodTrackingForm = () => {
       const response = await axios.post(URL, moodTrackingData);
       if (response.status === 201) {
         console.log("Mood tracking data submitted successfully");
-        // You can add a redirect or any other action here
+        setShowThanksMessage(true);
       } else {
         setErrorMessage("Server Error");
       }
@@ -96,150 +97,157 @@ const MoodTrackingForm = () => {
   return (
     <div>
       <h2>Mood Tracking Form</h2>
-      <form onSubmit={handleSubmit}>
+      {showThanksMessage ? (
         <div>
-          <label htmlFor="moodType">Mood Type</label>
-          <select
-            ref={moodTypeRef}
-            id="moodType"
-            name="moodType"
-            value={moodType}
-            onChange={handleMoodTypeChange}
-            required
-          >
-            <option value="">Select Mood Type</option>
-            <option value="Happy">Happy</option>
-            <option value="Sad">Sad</option>
-            <option value="Anxious">Anxious</option>
-            <option value="Calm">Calm</option>
-            <option value="Irritated">Irritated</option>
-            <option value="Relaxed">Relaxed</option>
-            <option value="Energized">Energized</option>
-            <option value="Tired">Tired</option>
-            <option value="Stressed">Stressed</option>
-            <option value="Content">Content</option>
-            <option value="Excited">Excited</option>
-            <option value="Confident">Confident</option>
-            <option value="Lonely">Lonely</option>
-            <option value="Grateful">Grateful</option>
-            <option value="Motivated">Motivated</option>
-            <option value="Overwhelmed">Overwhelmed</option>
-            <option value="Hopeful">Hopeful</option>
-            <option value="Frustrated">Frustrated</option>
-            <option value="Peaceful">Peaceful</option>
-            <option value="Bored">Bored</option>
-          </select>
-          {formErrors?.moodType && (
-            <p className="error-message">{formErrors.moodType}</p>
-          )}
+          <p>Thanks for adding the details.</p>
+          <p>Stay healthy Mentally</p>
         </div>
-        <div>
-          <label htmlFor="moodSeverity">Mood Severity</label>
-          <input
-            ref={moodSeverityRef}
-            type="number"
-            id="moodSeverity"
-            name="moodSeverity"
-            placeholder="Enter mood severity"
-            onChange={clearErrorMessage}
-            required
-          />
-          {formErrors?.moodSeverity && (
-            <p className="error-message">{formErrors.moodSeverity}</p>
-          )}
-        </div>
+      ) : (
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label htmlFor="moodType">Mood Type</label>
+            <select
+              ref={moodTypeRef}
+              id="moodType"
+              name="moodType"
+              value={moodType}
+              onChange={handleMoodTypeChange}
+              required
+            >
+              <option value="">Select Mood Type</option>
+              <option value="Happy">Happy</option>
+              <option value="Sad">Sad</option>
+              <option value="Anxious">Anxious</option>
+              <option value="Calm">Calm</option>
+              <option value="Irritated">Irritated</option>
+              <option value="Relaxed">Relaxed</option>
+              <option value="Energized">Energized</option>
+              <option value="Tired">Tired</option>
+              <option value="Stressed">Stressed</option>
+              <option value="Content">Content</option>
+              <option value="Excited">Excited</option>
+              <option value="Confident">Confident</option>
+              <option value="Lonely">Lonely</option>
+              <option value="Grateful">Grateful</option>
+              <option value="Motivated">Motivated</option>
+              <option value="Overwhelmed">Overwhelmed</option>
+              <option value="Hopeful">Hopeful</option>
+              <option value="Frustrated">Frustrated</option>
+              <option value="Peaceful">Peaceful</option>
+              <option value="Bored">Bored</option>
+            </select>
+            {formErrors?.moodType && (
+              <p className="error-message">{formErrors.moodType}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="moodSeverity">Mood Severity</label>
+            <input
+              ref={moodSeverityRef}
+              type="number"
+              id="moodSeverity"
+              name="moodSeverity"
+              placeholder="Enter mood severity"
+              onChange={clearErrorMessage}
+              required
+            />
+            {formErrors?.moodSeverity && (
+              <p className="error-message">{formErrors.moodSeverity}</p>
+            )}
+          </div>
 
-        <div>
-          <label htmlFor="sleepQuality">Sleep Quality</label>
-          <input
-            ref={sleepQualityRef}
-            type="number"
-            id="sleepQuality"
-            name="sleepQuality"
-            placeholder="Enter sleep quality"
-            onChange={clearErrorMessage}
-            required
-          />
-          {formErrors?.sleepQuality && (
-            <p className="error-message">{formErrors.sleepQuality}</p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="stressLevel">Stress Level</label>
-          <input
-            ref={stressLevelRef}
-            type="number"
-            id="stressLevel"
-            name="stressLevel"
-            placeholder="Enter stress level"
-            onChange={clearErrorMessage}
-            required
-          />
-          {formErrors?.stressLevel && (
-            <p className="error-message">{formErrors.stressLevel}</p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="energyLevel">Energy Level</label>
-          <input
-            ref={energyLevelRef}
-            type="number"
-            id="energyLevel"
-            name="energyLevel"
-            placeholder="Enter energy level"
-            onChange={clearErrorMessage}
-            required
-          />
-          {formErrors?.energyLevel && (
-            <p className="error-message">{formErrors.energyLevel}</p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="physicalHealthIssue">Physical Health Issue</label>
-          <input
-            ref={physicalHealthIssueRef}
-            type="text"
-            id="physicalHealthIssue"
-            name="physicalHealthIssue"
-            placeholder="Enter physical health issue"
-            onChange={clearErrorMessage}
-          />
-          {formErrors?.physicalHealthIssue && (
-            <p className="error-message">{formErrors.physicalHealthIssue}</p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="emotionalStateIssue">Emotional State Issue</label>
-          <input
-            ref={emotionalStateIssueRef}
-            type="text"
-            id="emotionalStateIssue"
-            name="emotionalStateIssue"
-            placeholder="Enter emotional state issue"
-            onChange={clearErrorMessage}
-          />
-          {formErrors?.emotionalStateIssue && (
-            <p className="error-message">{formErrors.emotionalStateIssue}</p>
-          )}
-        </div>
-        <div>
-          <label htmlFor="triggeringEvents">Triggering Events</label>
-          <input
-            ref={triggeringEventsRef}
-            type="text"
-            id="triggeringEvents"
-            name="triggeringEvents"
-            placeholder="Enter triggering events"
-            onChange={clearErrorMessage}
-          />
-          {formErrors?.triggeringEvents && (
-            <p className="error-message">{formErrors.triggeringEvents}</p>
-          )}
-        </div>
-        <div className="">
-          <button type="submit">Submit</button>
-        </div>
-      </form>
+          <div>
+            <label htmlFor="sleepQuality">Sleep Quality</label>
+            <input
+              ref={sleepQualityRef}
+              type="number"
+              id="sleepQuality"
+              name="sleepQuality"
+              placeholder="Enter sleep quality"
+              onChange={clearErrorMessage}
+              required
+            />
+            {formErrors?.sleepQuality && (
+              <p className="error-message">{formErrors.sleepQuality}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="stressLevel">Stress Level</label>
+            <input
+              ref={stressLevelRef}
+              type="number"
+              id="stressLevel"
+              name="stressLevel"
+              placeholder="Enter stress level"
+              onChange={clearErrorMessage}
+              required
+            />
+            {formErrors?.stressLevel && (
+              <p className="error-message">{formErrors.stressLevel}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="energyLevel">Energy Level</label>
+            <input
+              ref={energyLevelRef}
+              type="number"
+              id="energyLevel"
+              name="energyLevel"
+              placeholder="Enter energy level"
+              onChange={clearErrorMessage}
+              required
+            />
+            {formErrors?.energyLevel && (
+              <p className="error-message">{formErrors.energyLevel}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="physicalHealthIssue">Physical Health Issue</label>
+            <input
+              ref={physicalHealthIssueRef}
+              type="text"
+              id="physicalHealthIssue"
+              name="physicalHealthIssue"
+              placeholder="Enter physical health issue"
+              onChange={clearErrorMessage}
+            />
+            {formErrors?.physicalHealthIssue && (
+              <p className="error-message">{formErrors.physicalHealthIssue}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="emotionalStateIssue">Emotional State Issue</label>
+            <input
+              ref={emotionalStateIssueRef}
+              type="text"
+              id="emotionalStateIssue"
+              name="emotionalStateIssue"
+              placeholder="Enter emotional state issue"
+              onChange={clearErrorMessage}
+            />
+            {formErrors?.emotionalStateIssue && (
+              <p className="error-message">{formErrors.emotionalStateIssue}</p>
+            )}
+          </div>
+          <div>
+            <label htmlFor="triggeringEvents">Triggering Events</label>
+            <input
+              ref={triggeringEventsRef}
+              type="text"
+              id="triggeringEvents"
+              name="triggeringEvents"
+              placeholder="Enter triggering events"
+              onChange={clearErrorMessage}
+            />
+            {formErrors?.triggeringEvents && (
+              <p className="error-message">{formErrors.triggeringEvents}</p>
+            )}
+          </div>
+          <div className="">
+            <button type="submit">Submit</button>
+          </div>
+        </form>
+      )}
     </div>
   );
 };

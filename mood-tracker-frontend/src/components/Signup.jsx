@@ -2,6 +2,7 @@ import React, { useRef, useState } from "react";
 import axios from "axios";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import "./Signup.css";
 
 const signupSchema = z.object({
   email: z.string().email("Enter a valid email address"),
