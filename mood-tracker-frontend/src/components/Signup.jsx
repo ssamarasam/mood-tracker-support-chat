@@ -268,7 +268,7 @@ const Signup = ({ toggleForm }) => {
         </div>
 
         <div className="signup-input-field">
-          <label htmlFor="password">emergencyContact Contact Name</label>
+          <label htmlFor="password">EmergencyContact Contact Name</label>
           <input
             ref={emergencyContactNameRef}
             type="text"

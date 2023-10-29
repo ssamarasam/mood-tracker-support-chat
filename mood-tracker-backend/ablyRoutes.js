@@ -3,12 +3,11 @@ require("dotenv").config();
 const router = express.Router();
 const Ably = require("ably");
 const ABLY_API_KEY = process.env.ABLY_API_KEY;
-// console.log("ably keys1: ", ABLY_API_KEY);
 
 const realtime = new Ably.Realtime(ABLY_API_KEY);
 
 const generateAblyToken = (clientId, role) => {
-  console.log("Generating token for clientId:", clientId, "with role:", role);
+  // console.log("Generating token for clientId:", clientId, "with role:", role);
 
   return new Promise((resolve, reject) => {
     let capabilities = {};
@@ -33,7 +32,7 @@ const generateAblyToken = (clientId, role) => {
         console.error("Error generating token:", err);
         reject(err);
       } else {
-        console.log("Token generated successfully:", tokenRequest);
+        // console.log("Token generated successfully:", tokenRequest);
         resolve(tokenRequest);
       }
     });

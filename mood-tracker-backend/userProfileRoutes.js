@@ -46,7 +46,7 @@ router.post("/signup", async (req, res) => {
     aiPredictiveData,
   } = req.body;
 
-  console.log("email: ", email);
+  // console.log("email: ", email);
   try {
     const user = await prisma.user.create({
       data: {
@@ -65,7 +65,7 @@ router.post("/signup", async (req, res) => {
         aiPredictiveData,
       },
     });
-    console.log("created user: ", user);
+    // console.log("created user: ", user);
     res.status(201).json(user);
   } catch (err) {
     console.log("catch error: ", err);

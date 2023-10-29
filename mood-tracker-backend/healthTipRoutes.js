@@ -20,13 +20,13 @@ async function generateHealthTip(moodData) {
     model: "gpt-3.5-turbo",
     messages: [{ role: "user", content: prompt }],
   });
-  console.log("chat resp: ", response);
-  console.log("tip: ", response.choices[0].message.content);
+  //   console.log("chat resp: ", response);
+  //   console.log("tip: ", response.choices[0].message.content);
   return response.choices[0].message.content;
 }
 
 router.get("/generate-tip/:id", async (req, res) => {
-  console.log("inside generate tup");
+  //   console.log("inside generate tup");
   const userId = parseInt(req.params.id);
   try {
     const latestMood = await prisma.moodTrackingData.findFirst({

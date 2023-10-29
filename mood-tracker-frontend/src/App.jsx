@@ -22,25 +22,22 @@ const App = () => {
     setShowLogin(!showLogin);
   };
 
-  const handleLogin = () => {};
-  const handleSignup = () => {};
+  // const handleLogin = () => {};
+  // const handleSignup = () => {};
   return (
     <div>
       <Router>
         <Routes>
           <Route path="/login" element={<Login />} />
-          <Route
-            path="/signup"
-            element={<Signup handleSignup={handleSignup} />}
-          />
-          <Route path="/profile" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+
           <Route
             path="/dashboard"
             element={
               isAuthenticated ? (
                 <Dashboard role={role} />
               ) : (
-                <Navigate to="/login" replace />
+                <Navigate to="/" replace />
               )
             }
           />
