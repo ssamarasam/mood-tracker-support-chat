@@ -1,9 +1,10 @@
 import React, { useRef, useState, useContext } from "react";
 import axios from "axios";
-import { z } from "zod";
+import { set, z } from "zod";
 import { AuthContext } from "../context/AuthContext";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
+import "./Login.css";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email address"),
@@ -14,6 +15,7 @@ const Login = ({ toggleForm }) => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
   const [errorMessage, setErrorMessage] = useState("");
+  const [authError, SetAuthError] = useState(false);
   const [formErrors, setFormErros] = useState({
     email: "",
     password: "",
@@ -33,13 +35,15 @@ const Login = ({ toggleForm }) => {
       email: "",
       password: "",
     };
-    loginData.email = emailRef.current.value;
+    let emailId = emailRef.current.value;
+    loginData.email = emailId.toLowerCase();
     loginData.password = passwordRef.current.value;
 
     try {
       const validateFormData = loginSchema.parse(loginData);
       // console.log("after validate form data: ", validateFormData);
-      const URL = "http://localhost:3000" + "/auth/login";
+      const backendURL = import.meta.env.VITE_BACKEND_URL;
+      const URL = backendURL + "/auth/login";
       console.log("url: ", URL);
       const response = await axios.post(URL, {
         email: loginData.email,
@@ -65,6 +69,12 @@ const Login = ({ toggleForm }) => {
       }
     } catch (err) {
       console.log("Error while logging: ", err);
+      if (err.response.request.status === 401) {
+        console.log("401 error");
+        setErrorMessage(
+          "Invalid Credentials. Please signup or enter valid details."
+        );
+      }
       if (err.errors) {
         const listOfErrors = {};
         for (let formFieldErr of err.errors) {
@@ -79,18 +89,22 @@ const Login = ({ toggleForm }) => {
     }
   };
 
+  const handleToggle = () => {
+    toggleForm();
+  };
+
   return (
     <div>
-      <h2>Login</h2>
+      <h2 className="heading">Login</h2>
       <form onSubmit={handleSubmit}>
-        <div>
+        <div className="login-input-field">
           <label htmlFor="email">Email</label>
           <input
+            className="login-input-button"
             ref={emailRef}
             type="text"
             id="email"
             name="email"
-            className=""
             placeholder="enter email address"
             onChange={clearErrorMessage}
             required
@@ -99,14 +113,14 @@ const Login = ({ toggleForm }) => {
             <p className="error-message">{formErrors.email}</p>
           )}
         </div>
-        <div>
+        <div className="login-input-field">
           <label htmlFor="password">Password</label>
           <input
             ref={passwordRef}
             type="password"
             id="password"
             name="password"
-            className=""
+            className="login-input-button"
             placeholder="enter password"
             onChange={clearErrorMessage}
             required
@@ -116,12 +130,15 @@ const Login = ({ toggleForm }) => {
           )}
         </div>
         <div className="">
-          <div className="">
+          <div className="login-button">
             <button type="submit">Login</button>
           </div>
-          <button onClick={toggleForm}>Toggle to Signup</button>
+          <button className="toggle-button" onClick={handleToggle}>
+            Toggle to Signup
+          </button>
         </div>
       </form>
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };

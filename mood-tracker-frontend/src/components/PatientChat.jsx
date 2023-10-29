@@ -8,7 +8,6 @@ const PatientChat = () => {
   const [messageContent, setMessageContent] = useState("");
   const { user } = useContext(AuthContext);
   const ably = useAbly();
-  console.log("Ably instance:", ably);
 
   const channelName = `patient-${user.id}-chat`;
 
@@ -22,14 +21,13 @@ const PatientChat = () => {
     if (channel && messageContent) {
       channel.publish("chat-message", `Patient: ${messageContent}`);
       setMessageContent("");
-      // Notify the professional's dashboard that a chat has started.
       const profChannel = ably.channels.get("professional-channel");
       if (profChannel) {
         profChannel.publish("chat-started", { patientId: user.id }, (err) => {
           if (err) {
-            console.error("Error sending chat-started message:", err);
+            console.error("Error sending chat-started msg:", err);
           } else {
-            console.log("chat-started message sent successfully");
+            console.log("chat-started msg sent successfully");
           }
         });
       }
@@ -51,7 +49,7 @@ const PatientChat = () => {
       <form className="send-message" onSubmit={handleFormSubmit}>
         <input
           type="text"
-          placeholder="Type a message..."
+          placeholder="Type a message"
           value={messageContent}
           onChange={(e) => setMessageContent(e.target.value)}
         />

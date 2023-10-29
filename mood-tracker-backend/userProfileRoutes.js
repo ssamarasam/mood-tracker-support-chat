@@ -81,7 +81,6 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-// fetch user profile
 router.get("/get-user-data/:id", async (req, res) => {
   const userId = parseInt(req.params.id);
 

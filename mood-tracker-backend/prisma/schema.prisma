@@ -35,7 +35,7 @@ model MoodTrackingData {
   id                            Int     @id @default(autoincrement())
   moodType                      String
   moodSeverity                  Int
-  timeEntered                   String
+  timeEntered                   DateTime  @default(now())
   sleepQuality                  Int
   stressLevel                   Int
   energyLevel                   Int

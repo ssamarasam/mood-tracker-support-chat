@@ -1,7 +1,9 @@
-import React, { useRef, useState } from "react";
+import React, { useRef, useState, useContext } from "react";
 import axios from "axios";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import "./MoodTrackingForm.css";
 
 const moodTrackingSchema = z.object({
   moodType: z.string(),
@@ -24,11 +26,14 @@ const MoodTrackingForm = () => {
   const emotionalStateIssueRef = useRef(null);
   const triggeringEventsRef = useRef(null);
   const [moodType, setMoodType] = useState("");
+  const [moodSeverity, setMoodSeverity] = useState("");
+  const [sleepQuality, setSleepQuality] = useState("");
+  const [stressLevel, setStressLevel] = useState("");
+  const [energyLevel, setEnergyLevel] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [formErrors, setFormErrors] = useState({
     moodType: "",
     moodSeverity: "",
-
     sleepQuality: "",
     stressLevel: "",
     energyLevel: "",
@@ -36,7 +41,7 @@ const MoodTrackingForm = () => {
     emotionalStateIssue: "",
     triggeringEvents: "",
   });
-
+  const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const [showThanksMessage, setShowThanksMessage] = useState(false);
 
@@ -47,6 +52,20 @@ const MoodTrackingForm = () => {
   };
   const handleMoodTypeChange = (e) => {
     setMoodType(e.target.value);
+  };
+
+  const handleMoodSeverityChange = (e) => {
+    setMoodSeverity(e.target.value);
+  };
+
+  const handleSleepQualityChange = (e) => {
+    setSleepQuality(e.target.value);
+  };
+  const handleStressLevelChange = (e) => {
+    setStressLevel(e.target.value);
+  };
+  const handleEnergyLevelChange = (e) => {
+    setEnergyLevel(e.target.value);
   };
 
   const handleSubmit = async (e) => {
@@ -60,6 +79,7 @@ const MoodTrackingForm = () => {
       physicalHealthIssue: "",
       emotionalStateIssue: "",
       triggeringEvents: "",
+      userId: "",
     };
     moodTrackingData.moodType = moodTypeRef.current.value;
     moodTrackingData.moodSeverity = parseInt(moodSeverityRef.current.value, 10);
@@ -69,14 +89,20 @@ const MoodTrackingForm = () => {
     moodTrackingData.physicalHealthIssue = physicalHealthIssueRef.current.value;
     moodTrackingData.emotionalStateIssue = emotionalStateIssueRef.current.value;
     moodTrackingData.triggeringEvents = triggeringEventsRef.current.value;
+    moodTrackingData.userId = user.id;
 
     try {
       const validateFormData = moodTrackingSchema.parse(moodTrackingData);
-      const URL = "http://localhost:3000" + "/user-mood/add-mood-tracking-data";
+      const backendURL = import.meta.env.VITE_BACKEND_URL;
+      const URL = backendURL + "/user-mood/add-mood-tracking-data";
       const response = await axios.post(URL, moodTrackingData);
       if (response.status === 201) {
         console.log("Mood tracking data submitted successfully");
+
         setShowThanksMessage(true);
+        setTimeout(() => {
+          setShowThanksMessage(false);
+        }, 3000);
       } else {
         setErrorMessage("Server Error");
       }
@@ -104,7 +130,7 @@ const MoodTrackingForm = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit}>
-          <div>
+          <div className="track-input-field">
             <label htmlFor="moodType">Mood Type</label>
             <select
               ref={moodTypeRef}
@@ -128,21 +154,15 @@ const MoodTrackingForm = () => {
               <option value="Excited">Excited</option>
               <option value="Confident">Confident</option>
               <option value="Lonely">Lonely</option>
-              <option value="Grateful">Grateful</option>
               <option value="Motivated">Motivated</option>
-              <option value="Overwhelmed">Overwhelmed</option>
-              <option value="Hopeful">Hopeful</option>
               <option value="Frustrated">Frustrated</option>
               <option value="Peaceful">Peaceful</option>
               <option value="Bored">Bored</option>
             </select>
-            {formErrors?.moodType && (
-              <p className="error-message">{formErrors.moodType}</p>
-            )}
           </div>
-          <div>
+          <div className="track-input-field">
             <label htmlFor="moodSeverity">Mood Severity</label>
-            <input
+            {/* <input
               ref={moodSeverityRef}
               type="number"
               id="moodSeverity"
@@ -150,58 +170,140 @@ const MoodTrackingForm = () => {
               placeholder="Enter mood severity"
               onChange={clearErrorMessage}
               required
-            />
+            /> */}
+            <select
+              ref={moodSeverityRef}
+              id="moodSeverity"
+              name="moodSeverity"
+              onChange={handleMoodSeverityChange}
+              required
+            >
+              <option value="">Select Mood Severity</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
             {formErrors?.moodSeverity && (
               <p className="error-message">{formErrors.moodSeverity}</p>
             )}
           </div>
 
-          <div>
+          <div className="track-input-field">
             <label htmlFor="sleepQuality">Sleep Quality</label>
-            <input
+            {/* <input
               ref={sleepQualityRef}
               type="number"
               id="sleepQuality"
               name="sleepQuality"
               placeholder="Enter sleep quality"
               onChange={clearErrorMessage}
+              min={1}
+              max={10}
               required
-            />
+            /> */}
+            <select
+              ref={sleepQualityRef}
+              id="sleepQuality"
+              name="sleepQuality"
+              onChange={handleSleepQualityChange}
+              required
+            >
+              <option value="">Select Sleep Quality</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
             {formErrors?.sleepQuality && (
               <p className="error-message">{formErrors.sleepQuality}</p>
             )}
           </div>
-          <div>
+          <div className="track-input-field">
             <label htmlFor="stressLevel">Stress Level</label>
-            <input
+            {/* <input
               ref={stressLevelRef}
               type="number"
               id="stressLevel"
               name="stressLevel"
               placeholder="Enter stress level"
               onChange={clearErrorMessage}
+              min={1}
+              max={10}
               required
-            />
+            /> */}
+            <select
+              ref={stressLevelRef}
+              id="stressLevel"
+              name="stressLevel"
+              onChange={handleStressLevelChange}
+              required
+            >
+              <option value="">Select Stress Level</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
             {formErrors?.stressLevel && (
               <p className="error-message">{formErrors.stressLevel}</p>
             )}
           </div>
-          <div>
+          <div className="track-input-field">
             <label htmlFor="energyLevel">Energy Level</label>
-            <input
+            {/* <input
               ref={energyLevelRef}
               type="number"
               id="energyLevel"
               name="energyLevel"
               placeholder="Enter energy level"
+              min={1}
+              max={10}
               onChange={clearErrorMessage}
               required
-            />
+            /> */}
+            <select
+              ref={energyLevelRef}
+              id="energyLevel"
+              name="energyLevel"
+              onChange={handleEnergyLevelChange}
+              required
+            >
+              <option value="">Select Energy Level</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
             {formErrors?.energyLevel && (
               <p className="error-message">{formErrors.energyLevel}</p>
             )}
           </div>
-          <div>
+          <div className="track-input-field">
             <label htmlFor="physicalHealthIssue">Physical Health Issue</label>
             <input
               ref={physicalHealthIssueRef}
@@ -215,7 +317,7 @@ const MoodTrackingForm = () => {
               <p className="error-message">{formErrors.physicalHealthIssue}</p>
             )}
           </div>
-          <div>
+          <div className="track-input-field">
             <label htmlFor="emotionalStateIssue">Emotional State Issue</label>
             <input
               ref={emotionalStateIssueRef}
@@ -229,7 +331,7 @@ const MoodTrackingForm = () => {
               <p className="error-message">{formErrors.emotionalStateIssue}</p>
             )}
           </div>
-          <div>
+          <div className="track-input-field">
             <label htmlFor="triggeringEvents">Triggering Events</label>
             <input
               ref={triggeringEventsRef}
@@ -244,7 +346,9 @@ const MoodTrackingForm = () => {
             )}
           </div>
           <div className="">
-            <button type="submit">Submit</button>
+            <button className="track-submit-button" type="submit">
+              Submit
+            </button>
           </div>
         </form>
       )}

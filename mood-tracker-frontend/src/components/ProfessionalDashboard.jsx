@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useChannel } from "ably/react";
 import ProfessionalChat from "./ProfessionalChat";
 import "./PatientDashboard.css";
+import { AuthContext } from "../context/AuthContext";
 
 const ProfessionalDashboard = () => {
   const [activeChats, setActiveChats] = useState([]);
   const [selectedChat, setSelectedChat] = useState(null);
   const [selectedProfile, setSelectedProfile] = useState(null);
+  const { logout } = useContext(AuthContext);
 
   const { channel } = useChannel("professional-channel", (message) => {
     console.log("Received message on professional channel: ", message);
@@ -20,13 +22,13 @@ const ProfessionalDashboard = () => {
         console.log("Patient already in active chats.");
       }
     } else {
-      console.log("Received a different type of message:", message.name);
+      console.log("Received unexpected message:", message.name);
     }
   });
 
   const viewChat = (patientId) => {
     setSelectedChat(patientId);
-    setSelectedProfile(null); // Reset profile when viewing chat
+    setSelectedProfile(null);
   };
 
   const viewPatientProfile = (patientId) => {
@@ -36,7 +38,14 @@ const ProfessionalDashboard = () => {
 
   return (
     <div>
-      <h2>HealthCare Professionals's Dashboard</h2>
+      <h2>
+        HealthCare Professionals's Dashboard
+        <div className="dashboard-header">
+          <button className="logout-button" onClick={() => logout()}>
+            Logout
+          </button>
+        </div>
+      </h2>
 
       <div className="chat-listing">
         <h3>Active Chats</h3>

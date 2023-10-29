@@ -27,15 +27,15 @@ const ProfessionalChat = ({ patientId }) => {
   useEffect(() => {
     if (channel) {
       channel.on("detached", () => {
-        console.log("Channel was detached. Attempting to reattach...");
+        console.log("Channel detached. Trying to re-attach");
         channel.attach();
       });
 
       channel.on("attached", () => {
-        console.log("Successfully reattached to the channel.");
+        console.log("channel successfully reattached.");
         channel.history((err, page) => {
           if (err) {
-            console.error("Failed to fetch channel history:", err);
+            console.error("channel history fetch failed:", err);
             return;
           }
           const historicalMessages = page.items.map((item) => item.data);
@@ -43,10 +43,9 @@ const ProfessionalChat = ({ patientId }) => {
         });
       });
 
-      // Initially attaching to the channel
       channel.attach((err) => {
         if (err) {
-          console.error("Failed to attach to channel:", err);
+          console.error("channel attach failed:", err);
         }
       });
     }

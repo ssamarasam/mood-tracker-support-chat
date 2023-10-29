@@ -7,13 +7,15 @@ h2 {
   text-align: center;
 }
 
-.signup-input-field {
+.track-input-field {
   margin: 10px 0;
+  /* width: 100%; */
 }
 
 label {
   display: block;
   font-weight: bold;
+  width: 100%;
 }
 
 input[type="text"],
@@ -26,7 +28,7 @@ select {
   font-size: 16px;
 }
 
-.signup-button button[type="submit"] {
+.track-submit-button {
   margin-top: 20px;
   background-color: #007bff;
   color: #fff;
@@ -52,13 +54,4 @@ select {
   color: red;
   font-size: 14px;
   margin-top: 5px;
-}
-
-.row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.field-container {
-  width: 48%;
 }

@@ -35,8 +35,8 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.get("/protected", verifyToken, (req, res) => {
-  res.json({ message: "You have access to this protected route!" });
-});
+// router.get("/protected", verifyToken, (req, res) => {
+//   res.json({ message: "You have access to this protected route!" });
+// });
 
 module.exports = router;

@@ -3,7 +3,7 @@ require("dotenv").config();
 const router = express.Router();
 const Ably = require("ably");
 const ABLY_API_KEY = process.env.ABLY_API_KEY;
-console.log("ably keys1: ", ABLY_API_KEY);
+// console.log("ably keys1: ", ABLY_API_KEY);
 
 const realtime = new Ably.Realtime(ABLY_API_KEY);
 
@@ -18,7 +18,6 @@ const generateAblyToken = (clientId, role) => {
         [`chat-${clientId}`]: ["subscribe"],
       };
     } else if (role === "HealthCare Professional") {
-      // Updated the role to start with a capital 'D'
       capabilities = {
         [`chat-${clientId}`]: ["publish", "subscribe"],
       };
@@ -34,35 +33,35 @@ const generateAblyToken = (clientId, role) => {
         console.error("Error generating token:", err);
         reject(err);
       } else {
-        console.log("Token generation successful:", tokenRequest);
+        console.log("Token generated successfully:", tokenRequest);
         resolve(tokenRequest);
       }
     });
   });
 };
 
-router.post("/ably-auth", async (req, res) => {
-  console.log(
-    "Attempting Ably auth with userId:",
-    req.body.userId,
-    "and role:",
-    req.body.role
-  );
+// router.post("/ably-auth", async (req, res) => {
+//   console.log(
+//     "Attempting Ably auth with userId:",
+//     req.body.userId,
+//     "and role:",
+//     req.body.role
+//   );
 
-  try {
-    const clientId = req.body.userId;
-    const role = req.body.role;
+//   try {
+//     const clientId = req.body.userId;
+//     const role = req.body.role;
 
-    if (!clientId || !role) {
-      return res.status(400).send("userId and role are required.");
-    }
+//     if (!clientId || !role) {
+//       return res.status(400).send("userId and role are required.");
+//     }
 
-    const token = await generateAblyToken(clientId, role);
-    res.json(token);
-  } catch (err) {
-    console.error("Error during Ably auth:", err);
-    res.status(500).send(err.message);
-  }
-});
+//     const token = await generateAblyToken(clientId, role);
+//     res.json(token);
+//   } catch (err) {
+//     console.error("Error during Ably auth:", err);
+//     res.status(500).send(err.message);
+//   }
+// });
 
 module.exports = router;
