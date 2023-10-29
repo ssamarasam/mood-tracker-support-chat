@@ -1,3 +1,10 @@
+.online-status {
+  color: green;
+}
+
+.offline-status {
+  color: red;
+}
 .logout-button {
   float: right;
   background-color: #007bff;

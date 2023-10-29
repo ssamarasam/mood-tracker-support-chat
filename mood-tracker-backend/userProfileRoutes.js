@@ -82,6 +82,7 @@ router.post("/signup", async (req, res) => {
 });
 
 router.get("/get-user-data/:id", async (req, res) => {
+  console.log("inside patient fetch");
   const userId = parseInt(req.params.id);
 
   try {

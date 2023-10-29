@@ -9,6 +9,8 @@ const PatientChat = () => {
   const { user } = useContext(AuthContext);
   const ably = useAbly();
 
+  const [professionalLoggedIn, setProfessionalLoggedIn] = useState(false);
+
   const channelName = `patient-${user.id}-chat`;
 
   const { channel } = useChannel(channelName, (message) => {
@@ -16,6 +18,25 @@ const PatientChat = () => {
       setMessages((prevMessages) => [...prevMessages, message.data]);
     }
   });
+
+  useEffect(() => {
+    const onPresenceChange = (presenceMsg) => {
+      switch (presenceMsg.action) {
+        case "enter":
+          setProfessionalLoggedIn(true);
+          break;
+        case "leave":
+          setProfessionalLoggedIn(false);
+          break;
+        default:
+          break;
+      }
+    };
+
+    channel.presence.subscribe(onPresenceChange);
+
+    return () => channel.presence.unsubscribe(onPresenceChange);
+  }, [channel]);
 
   const sendMessage = () => {
     if (channel && messageContent) {
@@ -40,7 +61,15 @@ const PatientChat = () => {
 
   return (
     <div>
-      <h2>Chat with Doctor</h2>
+      <h2>
+        Chat with HealthCare Professional -{" "}
+        {professionalLoggedIn ? (
+          <span className="online-status">Online</span>
+        ) : (
+          <span className="offline-status">Offline</span>
+        )}
+      </h2>
+
       <div className="messages-list">
         {messages.map((msg, index) => (
           <div key={index}>{msg}</div>

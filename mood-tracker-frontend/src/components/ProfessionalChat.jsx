@@ -26,6 +26,7 @@ const ProfessionalChat = ({ patientId }) => {
 
   useEffect(() => {
     if (channel) {
+      channel.presence.enter();
       channel.on("detached", () => {
         console.log("Channel detached. Trying to re-attach");
         channel.attach();
@@ -52,6 +53,7 @@ const ProfessionalChat = ({ patientId }) => {
 
     return () => {
       if (channel) {
+        channel.presence.leave();
         channel.detach();
         channel.off("detached");
         channel.off("attached");
