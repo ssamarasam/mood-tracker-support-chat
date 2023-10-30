@@ -54,6 +54,7 @@
   z-index: 999;
   padding: 1rem;
   overflow-y: auto;
+  color: #6b6b6b;
 }
 
 .chat-minimize-button {
@@ -66,4 +67,67 @@
   cursor: pointer;
   border-radius: 4px;
   padding: 0.2rem 0.5rem;
+}
+
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+}
+
+.dashboard-header h3 {
+  margin: 0 auto;
+}
+
+.dashboard-header .logout-button {
+  margin-left: auto;
+}
+
+/* header */
+.dashboard-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #e0f2f1; /* Soft teal background */
+  padding: 10px 20px; /* Some padding to give space */
+  color: #00695c; /* Darker teal for text for contrast */
+  border-bottom: 1px solid #b2dfdb; /* A subtle bottom border to define the header space */
+}
+
+.dashboard-header h3 {
+  margin: 0 auto;
+}
+
+.dashboard-header .logout-button {
+  margin-left: auto;
+  background-color: #009688;
+  color: #e0f2f1;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dashboard-header .logout-button:hover {
+  background-color: #4a4e69;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+  color: #4a4e69;
+}
+
+p {
+  color: #6b6b6b;
+}
+
+input::placeholder {
+  color: #6b6b6b;
 }

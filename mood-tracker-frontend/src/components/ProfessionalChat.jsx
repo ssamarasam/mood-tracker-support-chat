@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { useChannel } from "ably/react";
 import { AuthContext } from "../context/AuthContext";
 import { useAbly } from "ably/react";
+import "./ProfessionalChat.css";
 
 const ProfessionalChat = ({ patientId }) => {
   const [messages, setMessages] = useState([]);
@@ -19,7 +20,10 @@ const ProfessionalChat = ({ patientId }) => {
 
   const sendMessage = () => {
     if (channel && messageContent) {
-      channel.publish("chat-message", `Doctor: ${messageContent}`);
+      channel.publish("chat-message", {
+        sender: "doctor",
+        text: `Doctor: ${messageContent}`,
+      });
       setMessageContent("");
     }
   };
@@ -71,7 +75,9 @@ const ProfessionalChat = ({ patientId }) => {
       <h2>Chat with Patient {patientId}</h2>
       <div className="messages-list">
         {messages.map((msg, index) => (
-          <div key={index}>{msg}</div>
+          <div key={index} className={`message ${msg.sender}`}>
+            {msg.text}
+          </div>
         ))}
       </div>
       <form className="send-message" onSubmit={handleFormSubmit}>

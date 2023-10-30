@@ -8,7 +8,7 @@ import "./Login.css";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email address"),
-  password: z.string().min(3, "Enter atleast 8 characters").max(15),
+  password: z.string().min(8, "Enter atleast 8 characters").max(15),
 });
 
 const Login = ({ toggleForm }) => {
@@ -95,6 +95,10 @@ const Login = ({ toggleForm }) => {
 
   return (
     <div>
+      <h2>Welcome to Mood Tracker with Support Chat</h2>
+      <h2>Powered by Ably</h2>
+      <hr></hr>
+      <br />
       <h2 className="heading">Login</h2>
       <form onSubmit={handleSubmit}>
         <div className="login-input-field">
@@ -133,9 +137,15 @@ const Login = ({ toggleForm }) => {
           <div className="login-button">
             <button type="submit">Login</button>
           </div>
-          <button className="toggle-button" onClick={handleToggle}>
-            Toggle to Signup
-          </button>
+          <div style={{ paddingLeft: "0px" }}>
+            <button
+              className="toggle-button"
+              onClick={handleToggle}
+              style={{ marginLeft: "0px" }}
+            >
+              Toggle to Signup
+            </button>
+          </div>
         </div>
       </form>
       {errorMessage && <p className="error-message">{errorMessage}</p>}

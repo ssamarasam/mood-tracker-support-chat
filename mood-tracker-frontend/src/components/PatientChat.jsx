@@ -8,7 +8,6 @@ const PatientChat = () => {
   const [messageContent, setMessageContent] = useState("");
   const { user } = useContext(AuthContext);
   const ably = useAbly();
-
   const [professionalLoggedIn, setProfessionalLoggedIn] = useState(false);
 
   const channelName = `patient-${user.id}-chat`;
@@ -40,7 +39,10 @@ const PatientChat = () => {
 
   const sendMessage = () => {
     if (channel && messageContent) {
-      channel.publish("chat-message", `Patient: ${messageContent}`);
+      channel.publish("chat-message", {
+        sender: "patient",
+        text: `Patient: ${messageContent}`,
+      });
       setMessageContent("");
       const profChannel = ably.channels.get("professional-channel");
       if (profChannel) {
@@ -54,6 +56,7 @@ const PatientChat = () => {
       }
     }
   };
+
   const handleFormSubmit = (e) => {
     e.preventDefault();
     sendMessage();
@@ -61,18 +64,19 @@ const PatientChat = () => {
 
   return (
     <div>
-      <h2>
+      <h3>
         Chat with HealthCare Professional -{" "}
         {professionalLoggedIn ? (
           <span className="online-status">Online</span>
         ) : (
           <span className="offline-status">Offline</span>
         )}
-      </h2>
-
+      </h3>
       <div className="messages-list">
         {messages.map((msg, index) => (
-          <div key={index}>{msg}</div>
+          <div key={index} className={`message ${msg.sender}`}>
+            {msg.text}
+          </div>
         ))}
       </div>
       <form className="send-message" onSubmit={handleFormSubmit}>

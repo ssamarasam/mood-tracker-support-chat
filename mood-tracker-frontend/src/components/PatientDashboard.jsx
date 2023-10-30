@@ -20,6 +20,7 @@ const PatientDashboard = () => {
   return (
     <div className="patient-dashboard">
       <div className="dashboard-header">
+        <h3>Patient Dashboard</h3>
         <button className="logout-button" onClick={() => logout()}>
           Logout
         </button>

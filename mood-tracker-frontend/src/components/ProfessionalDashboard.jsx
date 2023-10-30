@@ -72,8 +72,8 @@ const ProfessionalDashboard = () => {
 
   return (
     <div>
-      <div className="prof-dashboard-header">
-        <h2>HealthCare Professionals's Dashboard</h2>
+      <div className="dashboard-header">
+        <h3>HealthCare Professionals's Dashboard</h3>
         <button className="logout-button" onClick={() => logout()}>
           Logout
         </button>
@@ -99,23 +99,6 @@ const ProfessionalDashboard = () => {
         {selectedChat && <ProfessionalChat patientId={selectedChat} />}
 
         {selectedProfile && (
-          // <div className="profile-container">
-          //   <h3>Patient Profile</h3>
-          //   <p>ID : {selectedProfile.id}</p>
-          //   <p>Name : {selectedProfile.name}</p>
-          //   <p>Date of Birth: {selectedProfile.dob}</p>
-          //   <p>Phone : {selectedProfile.phone}</p>
-          //   <p>
-          //     Emergency Contact Name: {selectedProfile.emergencyContactName}
-          //   </p>
-          //   <p>
-          //     Emergency Contact Phone: {selectedProfile.emergencyContactPhone}
-          //   </p>
-          //   <p>
-          //     Emergency Contact Relationship:{" "}
-          //     {selectedProfile.emergencyContactRelationship}
-          //   </p>
-          // </div>
           <div className="profile-table">
             <h3>Patient Profile</h3>
             <table>

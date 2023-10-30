@@ -4,14 +4,20 @@ body {
 
 h2 {
   text-align: center;
-  /* margin-bottom: 2rem; */
+  margin-top: 0;
+}
+
+.prof-dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 
 .chat-listing {
-  width: 30%;
-  float: left;
+  flex: 0 0 30%;
   border-right: 1px solid #e1e1e1;
   padding-right: 2rem;
+  box-sizing: border-box;
 }
 
 .chat-listing h3 {
@@ -38,9 +44,9 @@ h2 {
 }
 
 .chat-view {
-  width: 65%;
-  float: right;
+  flex: 1;
   padding-left: 2rem;
+  box-sizing: border-box;
 }
 
 .messages-list {
@@ -99,8 +105,50 @@ table td:first-child {
   font-weight: bold;
 }
 
-.prof-dashboard-header {
+/* header */
+.dashboard-header {
   display: flex;
-  justify-content: space-around;
   align-items: center;
+  justify-content: space-between;
+  background-color: #e0f2f1; /* Soft teal background */
+  padding: 10px 20px; /* Some padding to give space */
+  color: #00695c; /* Darker teal for text for contrast */
+  border-bottom: 1px solid #b2dfdb; /* A subtle bottom border to define the header space */
+}
+
+.dashboard-header h3 {
+  margin: 0 auto;
+}
+
+.dashboard-header .logout-button {
+  margin-left: auto;
+  background-color: #009688;
+  color: #e0f2f1;
+  border: none;
+  padding: 5px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.dashboard-header .logout-button:hover {
+  background-color: #4a4e69;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+label {
+  color: #4a4e69;
+}
+
+p {
+  color: #6b6b6b;
+}
+
+input::placeholder {
+  color: #6b6b6b;
 }

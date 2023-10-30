@@ -6,7 +6,7 @@ import "./Signup.css";
 
 const signupSchema = z.object({
   email: z.string().email("Enter a valid email address"),
-  password: z.string().min(3, "Enter atleast 8 characters").max(15),
+  password: z.string().min(8, "Enter atleast 8 characters").max(15),
   name: z.string().min(3, "Enter atleast 3 characters").max(50),
   phone: z
     .string()
@@ -258,7 +258,7 @@ const Signup = ({ toggleForm }) => {
             name="phone"
             ref={phoneRef}
             className="signup-input-button"
-            placeholder="phone number"
+            placeholder="enter phone number"
             onChange={clearErrorMessage}
             required
           />
@@ -275,7 +275,7 @@ const Signup = ({ toggleForm }) => {
             id="emergencyContactName"
             name="emergencyContactName"
             className="signup-input-button"
-            placeholder="emergencyContact contact name"
+            placeholder="enter emergency contact name"
             onChange={clearErrorMessage}
             required
           />
@@ -308,7 +308,7 @@ const Signup = ({ toggleForm }) => {
             name="emergencyContactPhone"
             ref={emergencyContactPhoneRef}
             className="signup-input-button"
-            placeholder="emergencyContactPhone"
+            placeholder="enter emergency contact phone"
             onChange={clearErrorMessage}
             required
           />
@@ -325,7 +325,7 @@ const Signup = ({ toggleForm }) => {
             id="healthCareCode"
             name="healthCareCode"
             className="signup-input-button"
-            placeholder="healthCareCode"
+            placeholder="enter healthcare code"
             onChange={clearErrorMessage}
             required
           />
@@ -356,7 +356,11 @@ const Signup = ({ toggleForm }) => {
           <div className="signup-button">
             <button type="submit">Signup</button>
           </div>
-          <button className="toggle-button" onClick={toggleForm}>
+          <button
+            className="toggle-button"
+            onClick={toggleForm}
+            style={{ marginLeft: "0px" }}
+          >
             Toggle to Login
           </button>
         </div>
