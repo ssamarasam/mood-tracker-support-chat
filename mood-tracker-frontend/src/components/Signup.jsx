@@ -3,6 +3,7 @@ import axios from "axios";
 import { z } from "zod";
 import { useNavigate } from "react-router-dom";
 import "./Signup.css";
+import ablyLogo from "../assets/ably-logo.png";
 
 const signupSchema = z.object({
   email: z.string().email("Enter a valid email address"),
@@ -164,7 +165,33 @@ const Signup = ({ toggleForm }) => {
 
   return (
     <div>
-      <h2>Signup</h2>
+      <div
+        style={{
+          textAlign: "center",
+          margin: "20px 0",
+          paddingBottom: "20px",
+          borderBottom: "1px solid #e0e0e0",
+        }}
+      >
+        <h2>Welcome to Mood Tracker with Support Chat</h2>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+          }}
+        >
+          <h2 style={{ display: "inline-block", margin: "0" }}>Powered by</h2>
+          <img
+            src={ablyLogo}
+            alt="Ably"
+            width="80"
+            style={{ verticalAlign: "middle" }}
+          />
+        </div>
+        <h2>Signup</h2>
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="signup-input-field">
           <label htmlFor="email">Email</label>

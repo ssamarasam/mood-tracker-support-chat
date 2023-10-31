@@ -3,6 +3,7 @@ import { useChannel } from "ably/react";
 import { AuthContext } from "../context/AuthContext";
 import { useAbly } from "ably/react";
 import "./ProfessionalChat.css";
+import ablyLogo from "../assets/ably-logo.png";
 
 const ProfessionalChat = ({ patientId }) => {
   const [messages, setMessages] = useState([]);
@@ -72,7 +73,32 @@ const ProfessionalChat = ({ patientId }) => {
 
   return (
     <div>
-      <h2>Chat with Patient {patientId}</h2>
+      <div style={{ textAlign: "center", margin: "10px 0" }}>
+        <img
+          src={ablyLogo}
+          alt="Ably"
+          width="40"
+          style={{ verticalAlign: "middle" }}
+        />
+        <span
+          style={{
+            fontSize: "1.1rem",
+            marginLeft: "10px",
+            verticalAlign: "middle",
+          }}
+        >
+          Mood Tracker with Support - Powered by Ably
+        </span>
+      </div>
+      <p
+        style={{
+          fontSize: "1.1rem",
+          marginLeft: "10px",
+          verticalAlign: "middle",
+        }}
+      >
+        Chat with Patient {patientId}
+      </p>
       <div className="messages-list">
         {messages.map((msg, index) => (
           <div key={index} className={`message ${msg.sender}`}>

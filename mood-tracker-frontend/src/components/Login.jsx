@@ -5,6 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 import jwtDecode from "jwt-decode";
 import { useNavigate } from "react-router-dom";
 import "./Login.css";
+import ablyLogo from "../assets/ably-logo.png";
 
 const loginSchema = z.object({
   email: z.string().email("Enter a valid email address"),
@@ -95,9 +96,37 @@ const Login = ({ toggleForm }) => {
 
   return (
     <div>
-      <h2>Welcome to Mood Tracker with Support Chat</h2>
-      <h2>Powered by Ably</h2>
-      <hr></hr>
+      <div
+        style={{
+          textAlign: "center",
+          margin: "20px 0",
+          borderBottom: "1px solid #e0e0e0",
+          paddingBottom: "20px",
+        }}
+      >
+        <h2 style={{ fontSize: "24px", marginBottom: "10px" }}>
+          Welcome to Mood Tracker with Support Chat
+        </h2>
+
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: "10px",
+            flexDirection: "row",
+          }}
+        >
+          <h2 style={{ fontSize: "24px", margin: 0 }}>Powered by </h2>
+          <img
+            src={ablyLogo}
+            alt="Ably"
+            width="80"
+            style={{ verticalAlign: "middle", marginRight: "10px" }}
+          />
+        </div>
+      </div>
+
       <br />
       <h2 className="heading">Login</h2>
       <form onSubmit={handleSubmit}>
