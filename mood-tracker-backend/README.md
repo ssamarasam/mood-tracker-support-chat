@@ -14,10 +14,13 @@ An implementation with Node Express.
 1. Go to https://ably.com/ and generate your API key and enter it in `ABLY_API_KEY`
 
 2. Generate a secrect code usingt he below code and enter it in `JWT_SECRET`
+    const crypto = require("crypto");
+    const secretKey = crypto.randomBytes(32).toString("hex");
+    console.log(secretKey);
 
-3. Get the [openai](https://openai.com/product) API Key and enter it in `OPENAI_API_KEY`.
+4. Get the [openai](https://openai.com/product) API Key and enter it in `OPENAI_API_KEY`.
 
-4. Setup Sqlite3 database
+5. Setup Sqlite3 database
    `DATABASE_URL="file:./dev.db"`
 
 Below is the fuill list of env variables for backend:
