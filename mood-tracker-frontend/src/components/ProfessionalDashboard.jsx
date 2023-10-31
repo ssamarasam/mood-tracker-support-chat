@@ -4,7 +4,6 @@ import ProfessionalChat from "./ProfessionalChat";
 import "./ProfessionalDashboard.css";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
-import ablyLogo from "../assets/ably-logo.png";
 
 const ProfessionalDashboard = () => {
   const [activeChats, setActiveChats] = useState([]);
