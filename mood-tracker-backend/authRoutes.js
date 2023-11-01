@@ -3,11 +3,10 @@ const jwt = require("jsonwebtoken");
 const router = express.Router();
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
-const verifyToken = require("./authMiddleware");
+// const verifyToken = require("./authMiddleware");
 const JWT_SECRET_KEY = process.env.JWT_SECRET;
 
 router.post("/login", async (req, res) => {
-  console.log("inside login route");
   try {
     const { email, password } = req.body;
     const user = await prisma.user.findUnique({
@@ -26,7 +25,7 @@ router.post("/login", async (req, res) => {
       const { password, ...userObjWithoutPassword } = user;
 
       const token = jwt.sign({ user: userObjWithoutPassword }, JWT_SECRET_KEY);
-      console.log("auth sucecssful, user found, token generated");
+      // console.log("auth sucecssful, user found, token generated");
       res.json({ token });
     }
   } catch (error) {
@@ -34,9 +33,5 @@ router.post("/login", async (req, res) => {
     res.status(500).json({ message: "Internal server error" });
   }
 });
-
-// router.get("/protected", verifyToken, (req, res) => {
-//   res.json({ message: "You have access to this protected route!" });
-// });
 
 module.exports = router;

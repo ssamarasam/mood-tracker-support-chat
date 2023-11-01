@@ -4,7 +4,6 @@ const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
 router.get("/get-healthcareProfessional", async (req, res) => {
-  console.log("inside healthcare fetch");
   try {
     const professional = await prisma.user.findFirst({
       where: {
@@ -13,12 +12,11 @@ router.get("/get-healthcareProfessional", async (req, res) => {
     });
 
     if (!professional) {
-      console.log("no healthcare professional");
       return res.status(404).json({
         message: "No healthcare professional found.",
       });
     }
-    console.log("healthcare found");
+
     res.status(200).json(professional);
   } catch (err) {
     console.error("Error fetching healthcare professional: ", err);
@@ -29,7 +27,6 @@ router.get("/get-healthcareProfessional", async (req, res) => {
 });
 
 router.post("/signup", async (req, res) => {
-  console.log("auth routes entry succesfull");
   const {
     email,
     password,
@@ -46,7 +43,6 @@ router.post("/signup", async (req, res) => {
     aiPredictiveData,
   } = req.body;
 
-  // console.log("email: ", email);
   try {
     const user = await prisma.user.create({
       data: {
@@ -65,7 +61,7 @@ router.post("/signup", async (req, res) => {
         aiPredictiveData,
       },
     });
-    // console.log("created user: ", user);
+
     res.status(201).json(user);
   } catch (err) {
     console.log("catch error: ", err);
@@ -82,7 +78,6 @@ router.post("/signup", async (req, res) => {
 });
 
 router.get("/get-user-data/:id", async (req, res) => {
-  console.log("inside patient fetch");
   const userId = parseInt(req.params.id);
 
   try {

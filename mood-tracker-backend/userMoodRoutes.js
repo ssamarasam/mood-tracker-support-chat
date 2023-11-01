@@ -5,11 +5,11 @@ const prisma = new PrismaClient();
 
 router.post("/add-mood-tracking-data", async (req, res) => {
   const addedTime = new Date();
-  // console.log("time entered: ", timeEntereda);
+
   const {
     moodType,
     moodSeverity,
-    // timeEntered,
+
     sleepQuality,
     stressLevel,
     energyLevel,
@@ -18,13 +18,13 @@ router.post("/add-mood-tracking-data", async (req, res) => {
     triggeringEvents,
     userId,
   } = req.body;
-  // console.log("userId: ", userId);
+
   try {
     const moodData = await prisma.moodTrackingData.create({
       data: {
         moodType,
         moodSeverity,
-        // timeEntered: addedTime,
+
         sleepQuality,
         stressLevel,
         energyLevel,
@@ -34,7 +34,7 @@ router.post("/add-mood-tracking-data", async (req, res) => {
         userId,
       },
     });
-    // console.log("created mood data: ", moodData);
+
     res.status(201).json(moodData);
   } catch (err) {
     console.log("Error while adding mood trackdata: ", err);
@@ -45,7 +45,6 @@ router.post("/add-mood-tracking-data", async (req, res) => {
 });
 
 router.get("/get-mood-tracking-data/:id", async (req, res) => {
-  // console.log("get mood tracking data router");
   const userId = parseInt(req.params.id);
 
   try {
@@ -57,7 +56,6 @@ router.get("/get-mood-tracking-data/:id", async (req, res) => {
         timeEntered: "desc",
       },
     });
-    // console.log("moodDataList: ", moodDataList);
 
     if (!moodDataList.length) {
       return res.status(404).json({

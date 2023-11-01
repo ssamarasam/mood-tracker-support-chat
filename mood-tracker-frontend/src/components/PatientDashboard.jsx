@@ -9,9 +9,6 @@ import PatientChat from "./PatientChat";
 const PatientDashboard = () => {
   const [openChat, setOpenChat] = useState(false);
   const { user, role, logout } = useContext(AuthContext);
-  // const URL = "http://localhost:3000" + "/ably/ably-auth";
-  // const ablyApiKey = import.meta.env.VITE_ABLY_API_KEY;
-  console.log("patient dashboard");
 
   const handleChatButton = () => {
     setOpenChat(!openChat);

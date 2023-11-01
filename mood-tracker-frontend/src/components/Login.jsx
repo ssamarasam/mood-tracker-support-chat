@@ -42,29 +42,22 @@ const Login = ({ toggleForm }) => {
 
     try {
       const validateFormData = loginSchema.parse(loginData);
-      // console.log("after validate form data: ", validateFormData);
+
       const backendURL = import.meta.env.VITE_BACKEND_URL;
       const URL = backendURL + "/auth/login";
-      // console.log("url: ", URL);
+
       const response = await axios.post(URL, {
         email: loginData.email,
         password: loginData.password,
       });
-      // console.log("res: ", response);
+
       if (response.data.token) {
-        // console.log(
-        //   "got token from backend successfully: ",
-        //   response.data.token
-        // );
         const token = response.data.token;
         const decodedToken = jwtDecode(token);
-        // console.log("user: ", decodedToken.user);
+
         localStorage.setItem("token", token);
         login(decodedToken.user);
         navigate("/dashboard");
-        // setUser(response.data.user);
-        // setIsAuthenticated(true);
-        // setRole(response.data.user.role);
       } else {
         console.log("login failed");
       }

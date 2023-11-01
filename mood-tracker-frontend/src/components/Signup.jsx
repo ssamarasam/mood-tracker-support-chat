@@ -112,7 +112,7 @@ const Signup = ({ toggleForm }) => {
     signupData.emergencyContactPhone = emergencyContactPhoneRef.current.value;
     signupData.emergencyContactRelationship = relationship;
     signupData.healthCareCode = healthCareCodeRef.current.value;
-    console.log("code: ", healthCareCodeRef.current.value);
+
     signupData.professionalSpecialization =
       professionalSpecializationRef.current.value;
 
@@ -129,25 +129,20 @@ const Signup = ({ toggleForm }) => {
       const validateFormData = signupSchema.parse(signupData);
       const backendURL = import.meta.env.VITE_BACKEND_URL;
       const URL = backendURL + "/user-profile/signup";
-      console.log("url: ", URL);
+
       const response = await axios.post(URL, signupData);
-      console.log("response signup: ", response);
+
       if (response.status === 201) {
-        // setDataStored(true);
-        console.log("signup complete ");
         navigate("/dashboard");
       } else {
         if (response.data.message === "Unique Constraint Error") {
-          // setDataStored(false);
           setErrorMessage("Student Record already exists");
         } else {
-          // setDataStored(false);
           setErrorMessage("Server Error");
         }
       }
     } catch (err) {
       console.log("Error while signup: ", err);
-      // setFormErros(err.formErrors);
 
       if (err.errors) {
         const listOfErrors = {};

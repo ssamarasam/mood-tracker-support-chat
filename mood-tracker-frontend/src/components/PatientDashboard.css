@@ -84,15 +84,14 @@
   margin-left: auto;
 }
 
-/* header */
 .dashboard-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #e0f2f1; /* Soft teal background */
-  padding: 10px 20px; /* Some padding to give space */
-  color: #00695c; /* Darker teal for text for contrast */
-  border-bottom: 1px solid #b2dfdb; /* A subtle bottom border to define the header space */
+  background-color: #e0f2f1;
+  padding: 10px 20px;
+  color: #00695c;
+  border-bottom: 1px solid #b2dfdb;
 }
 
 .dashboard-header h3 {

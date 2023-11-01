@@ -27,12 +27,11 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const URL = backendURL + "/user-profile/get-healthcareProfessional";
-    console.log("healfetch url: ", URL);
+
     if (isAuthenticated && role === "Patient") {
       axios
         .get(URL)
         .then((response) => {
-          console.log("get health care success FE: ", response.data);
           setHealthcareProfessionalUserId(response.data.id);
         })
         .catch((err) => {

@@ -15,10 +15,6 @@ function HealthTip() {
       try {
         const response = await axios.get(URL);
         const data = response.data;
-
-        // if (data && data.message === "Health tip generated and sent.") {
-        //   setHealthTip(data.message);
-        // }
       } catch (error) {
         console.error("Error fetching health tip:", error);
       }

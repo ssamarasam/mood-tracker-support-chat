@@ -12,10 +12,8 @@ const ProfessionalDashboard = () => {
   const { logout } = useContext(AuthContext);
 
   const { channel } = useChannel("professional-channel", (message) => {
-    console.log("Received message on professional channel: ", message);
     if (message.name === "chat-started") {
       const patientId = message.data.patientId;
-      console.log("Received chat-started for patientId:", patientId);
 
       if (!activeChats.includes(patientId)) {
         setActiveChats((prevChats) => [...prevChats, patientId]);
@@ -32,11 +30,6 @@ const ProfessionalDashboard = () => {
     setSelectedProfile(null);
   };
 
-  // const viewPatientProfile = (patientId) => {
-  //   setSelectedProfile(patientId);
-  //   setSelectedChat(null);
-  // };
-
   const fetchPatientProfile = async (patientId) => {
     try {
       const backendURL = import.meta.env.VITE_BACKEND_URL;
@@ -49,16 +42,6 @@ const ProfessionalDashboard = () => {
       return null;
     }
   };
-
-  // async function fetchPatientProfile(patientId) {
-  //   try {
-  //     const response = await axios.get(`/api/patient/${patientId}`);
-  //     return response.data;
-  //   } catch (error) {
-  //     console.error("Error fetching patient profile:", error);
-  //     return null;
-  //   }
-  // }
 
   const viewPatientProfile = async (patientId) => {
     const profile = await fetchPatientProfile(patientId);

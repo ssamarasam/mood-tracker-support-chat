@@ -97,8 +97,6 @@ const MoodTrackingForm = () => {
       const URL = backendURL + "/user-mood/add-mood-tracking-data";
       const response = await axios.post(URL, moodTrackingData);
       if (response.status === 201) {
-        console.log("Mood tracking data submitted successfully");
-
         setShowThanksMessage(true);
         setTimeout(() => {
           setShowThanksMessage(false);

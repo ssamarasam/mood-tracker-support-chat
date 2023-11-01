@@ -14,7 +14,6 @@ const ProfessionalChat = ({ patientId }) => {
 
   const { channel } = useChannel(channelName, (message) => {
     if (message.name === "chat-message") {
-      console.log("Received message:", message);
       setMessages((prevMessages) => [...prevMessages, message.data]);
     }
   });
@@ -33,12 +32,10 @@ const ProfessionalChat = ({ patientId }) => {
     if (channel) {
       channel.presence.enter();
       channel.on("detached", () => {
-        console.log("Channel detached. Trying to re-attach");
         channel.attach();
       });
 
       channel.on("attached", () => {
-        console.log("channel successfully reattached.");
         channel.history((err, page) => {
           if (err) {
             console.error("channel history fetch failed:", err);
