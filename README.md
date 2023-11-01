@@ -2,7 +2,7 @@
 A Real-time Mental Health Solution Support application powered by Ably
 
 **Video Demo**
-[![Mood Tracker and Support Chat](https://github.com/ssamarasam/mood-tracker-support-chat/blob/eb3f01e9a16189931333752faf31fafdd346702f/demo/Mood%20Tracker%20and%20Support%20Chat%20-%20thumbnail.png)]([https://www.youtube.com/watch?v=StTqXEQ2l-Y](https://www.youtube.com/watch?v=qH_oN4gGq14) "Mood Tracker and Support Chat")
+[![Mood Tracker and Support Chat](https://github.com/ssamarasam/mood-tracker-support-chat/blob/eb3f01e9a16189931333752faf31fafdd346702f/demo/Mood%20Tracker%20and%20Support%20Chat%20-%20thumbnail.png)](https://www.youtube.com/watch?v=qH_oN4gGq14 "Mood Tracker and Support Chat")
 
 
 **Deployment**
